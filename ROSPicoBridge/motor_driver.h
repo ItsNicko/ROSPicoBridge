@@ -3,6 +3,7 @@
    *************************************************************/
 
 #ifdef L298_MOTOR_DRIVER
+  // Raspberry Pi Pico GPIO numbers; wire the L298N inputs and enables here.
   #define RIGHT_MOTOR_BACKWARD 5
   #define LEFT_MOTOR_BACKWARD  6
   #define RIGHT_MOTOR_FORWARD  9

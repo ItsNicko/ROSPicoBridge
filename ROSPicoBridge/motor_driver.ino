@@ -3,7 +3,7 @@
    
    Add a "#elif defined" block to this file to include support
    for a particular motor driver.  Then add the appropriate
-   #define near the top of the main ROSArduinoBridge.ino file.
+   #define near the top of the main ROSPicoBridge.ino file.
    
    *************************************************************/
 
@@ -57,20 +57,21 @@
   }
 #elif defined L298_MOTOR_DRIVER
   void initMotorController() {
+    pinMode(RIGHT_MOTOR_BACKWARD, OUTPUT);
+    pinMode(LEFT_MOTOR_BACKWARD, OUTPUT);
+    pinMode(RIGHT_MOTOR_FORWARD, OUTPUT);
+    pinMode(LEFT_MOTOR_FORWARD, OUTPUT);
+    pinMode(RIGHT_MOTOR_ENABLE, OUTPUT);
+    pinMode(LEFT_MOTOR_ENABLE, OUTPUT);
     digitalWrite(RIGHT_MOTOR_ENABLE, HIGH);
     digitalWrite(LEFT_MOTOR_ENABLE, HIGH);
   }
   
   void setMotorSpeed(int i, int spd) {
-    unsigned char reverse = 0;
-  
-    if (spd < 0)
-    {
+    spd = constrain(spd, -MAX_PWM, MAX_PWM);
+    bool reverse = spd < 0;
+    if (reverse)
       spd = -spd;
-      reverse = 1;
-    }
-    if (spd > 255)
-      spd = 255;
     
     if (i == LEFT) { 
       if      (reverse == 0) { analogWrite(LEFT_MOTOR_FORWARD, spd); analogWrite(LEFT_MOTOR_BACKWARD, 0); }

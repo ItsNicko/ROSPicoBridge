@@ -1,6 +1,8 @@
 #ifndef SERVOS_H
 #define SERVOS_H
 
+#include <Servo.h>
+
 
 #define N_SERVOS 2
 
